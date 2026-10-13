@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jupiter: reference</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- The hero from thesunwilldie.com without Astro, the header or the text.
+         fluid.js, hero.js and storms.js are unchanged copies from the site.
+         data-base="/assets" is put in front of the photo paths in storms.js,
+         so this page only works when the server runs from the folder above
+         (jupiter-fluid/), not from reference/. -->
+    <section class="hero" data-jupiter data-base="/assets">
+      <picture>
+        <source
+          type="image/webp"
+          srcset="/assets/jupiter/jupiter-1280.webp 1280w, /assets/jupiter/jupiter-1920.webp 1920w"
+          sizes="100vw"
+        />
+        <img
+          class="hero-still"
+          src="/assets/jupiter/jupiter-1920.jpg"
+          alt="Blue clouds and storms on Jupiter, photographed by NASA's Juno spacecraft."
+          width="1920"
+          height="1630"
+          style="object-position: 45% 45%"
+        />
+      </picture>
+      <canvas class="hero-canvas" aria-hidden="true"></canvas>
+    </section>
+
+    <script type="module">
+      import { mountJupiter } from './hero.js';
+
+      const root = document.querySelector('[data-jupiter]');
+      const fluid = mountJupiter(root);
+      if (!fluid) root.classList.add('is-still');
+
+      // Open the browser console and type `jupiter` to poke at the
+      // simulation, e.g. jupiter.measure() or jupiter.storms.
+      window.jupiter = fluid;
+    </script>
+  </body>
+</html>
